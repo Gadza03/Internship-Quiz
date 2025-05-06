@@ -159,7 +159,7 @@ input {
   .searchAndAvatar {
     gap: 7px;
   }
-  input {
+  .searchInput {
     width: 130px;
     font-size: 12px;
   }

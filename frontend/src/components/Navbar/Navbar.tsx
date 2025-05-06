@@ -45,6 +45,7 @@ export const Navbar = () => {
             value={searchParam}
             onChange={handleChange}
             placeholder="Search quizzes"
+            className={c.searchInput}
           />
           <button type="submit" className={c.searchBtn}>
             Search
