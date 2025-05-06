@@ -48,3 +48,26 @@ jobs:
             ghcr.io/${{ env.USER_LOWER }}/${{ env.REPO_LOWER }}:${{ github.ref_name }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
+
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+
+    needs:
+      - docker_image_build
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: SSH and deploy
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            sudo docker pull ghcr.io/gadza03/internship-quiz:main
+            sudo docker stop quiz-deployment || true
+            sudo docker rm quiz-deployment || true
+            sudo docker run -d -p 3000:3000 --env-file .env --restart always --name quiz-deployment ghcr.io/gadza03/internship-quiz:main
