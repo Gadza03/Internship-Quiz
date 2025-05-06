@@ -29,8 +29,6 @@ export function QuizzesPage() {
     error: categoriesError,
   } = useFetch<Category[]>(fetchAllCategories);
 
-  console.log(quizzes);
-
   useEffect(() => {
     if (quizzes) {
       const searchQuery = new URLSearchParams(search).get("search");
