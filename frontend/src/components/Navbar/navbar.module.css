@@ -154,3 +154,17 @@ input {
     width: 50%;
   }
 }
+
+@media (max-width: 400px) {
+  .searchAndAvatar {
+    gap: 7px;
+  }
+  input {
+    width: 130px;
+    font-size: 12px;
+  }
+
+  .navigation button {
+    font-size: 12px;
+  }
+}
