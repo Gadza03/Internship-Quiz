@@ -1,9 +1,9 @@
+import api from "@/constants/api";
 import { API_ENDPOINTS } from "@/constants/constants";
-import axios from "axios";
 
 export const loginService = async (prompt: string, password: string) => {
   try {
-    const response = await axios.post(API_ENDPOINTS.AUTH.LOGIN, {
+    const response = await api.post(API_ENDPOINTS.AUTH.LOGIN, {
       prompt: prompt,
       password: password,
     });
@@ -21,7 +21,7 @@ export const register = async (
   password: string
 ) => {
   try {
-    const response = await axios.post(API_ENDPOINTS.AUTH.REGISTER, {
+    const response = await api.post(API_ENDPOINTS.AUTH.REGISTER, {
       username: username,
       email: email,
       password: password,

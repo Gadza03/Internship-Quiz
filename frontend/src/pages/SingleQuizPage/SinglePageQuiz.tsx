@@ -14,7 +14,7 @@ export function SinglePageQuiz() {
     throw new Error("Something went wrong.");
   }
   const fetcher = useCallback(() => fetchQuizById(id), [id]);
-  const { data, isLoading, error } = useFetch<Quiz>(fetcher);
+  const { data: quiz, isLoading, error } = useFetch<Quiz>(fetcher);
 
   const navigate = useNavigate();
 
@@ -34,7 +34,7 @@ export function SinglePageQuiz() {
 
   if (error) throw new Error(error || "Unknown error");
 
-  if (!data) {
+  if (!quiz) {
     return (
       <div className="container">
         <p>No quiz found</p>
@@ -43,7 +43,7 @@ export function SinglePageQuiz() {
   }
 
   const saveResult = async () => {
-    if (!data) return;
+    if (!quiz) return;
 
     try {
       await saveQuizResult(id, score);
@@ -64,7 +64,7 @@ export function SinglePageQuiz() {
   };
 
   const handleNextQuestion = () => {
-    if (currentQuestionIndex < data.questions.length - 1) {
+    if (currentQuestionIndex < quiz.questions.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
       setSelectedAnswer(null);
       setIsAnswered(false);
@@ -89,7 +89,7 @@ export function SinglePageQuiz() {
           <h2>Quiz Completed!</h2>
           <div className={c.quizStats}>
             <h3>
-              Your Score: {score}/{data.questions.length * 10}
+              Your Score: {score}/{quiz.questions.length * 10}
             </h3>
           </div>
           <div className={c.buttonWrapper}>
@@ -107,8 +107,7 @@ export function SinglePageQuiz() {
       </div>
     );
   }
-
-  const currentQuestion = data.questions[currentQuestionIndex];
+  const currentQuestion = quiz.questions[currentQuestionIndex];
 
   const renderQuestionOptions = () => {
     switch (currentQuestion.type) {
@@ -205,10 +204,10 @@ export function SinglePageQuiz() {
   return (
     <div className="container headerPadding">
       <div className={c.quizHeader}>
-        <h1>{data.name}</h1>
-        <p>Category: {data.category.name}</p>
+        <h1>{quiz.name}</h1>
+        <p>Category: {quiz.category.name}</p>
         <div className={c.progressIndicator}>
-          Question {currentQuestionIndex + 1} of {data.questions.length}
+          Question {currentQuestionIndex + 1} of {quiz.questions.length}
         </div>
       </div>
 
@@ -220,7 +219,7 @@ export function SinglePageQuiz() {
       {isAnswered && (
         <div className={c.navigationContainer}>
           <button className={c.nextButton} onClick={handleNextQuestion}>
-            {currentQuestionIndex < data.questions.length - 1
+            {currentQuestionIndex < quiz.questions.length - 1
               ? "Next Question"
               : "See Results"}
           </button>

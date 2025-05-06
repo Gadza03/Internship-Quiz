@@ -2,23 +2,23 @@ import { API_BASE_URL } from "./api";
 
 export const API_ENDPOINTS = {
   AUTH: {
-    LOGIN: `${API_BASE_URL}/auth/login`,
-    REGISTER: `${API_BASE_URL}/auth/register`,
+    LOGIN: `/auth/login`,
+    REGISTER: `/auth/register`,
   },
   QUIZ: {
     ALL_QUIZZES: `${API_BASE_URL}/quiz`,
-    SEARCH: `${API_BASE_URL}/quiz/search`,
-    SINGLE: (id: string) => `${API_BASE_URL}/quiz/${id}`,
-    CREATE: `${API_BASE_URL}/quiz`,
+    SEARCH: `/quiz/search`,
+    SINGLE: (id: string) => `/quiz/${id}`,
+    CREATE: `/quiz`,
   },
   USER: {
-    RANKING: `${API_BASE_URL}/user/ranking`,
+    RANKING: `/user/ranking`,
   },
   CATEGORY: {
-    ALL_CATEGORIES: `${API_BASE_URL}/category`,
-    CREATE: `${API_BASE_URL}/category`,
+    ALL_CATEGORIES: `/category`,
+    CREATE: `/category`,
   },
   QUIZ_RESULTS: {
-    CREATE: `${API_BASE_URL}/quiz-result`,
+    CREATE: `/quiz-result`,
   },
 };
